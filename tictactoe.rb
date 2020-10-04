@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # OBJECTS
 # game board
 class Board
@@ -15,10 +17,9 @@ class Board
   # to update players
   def draw_board
     (0..8).each do |i|
-      puts if i % 3 == 0 && i != 0
-      print ' '
+      puts if (i % 3).zero? && i != 0
+      print '|'
       print @spaces[i]
-      print ' '
       print '|'
     end
     puts
@@ -29,7 +30,11 @@ class Board
   def update_board(cell, player)
     return 'invalid' if @spaces[cell] != ' '
 
-    @spaces[cell] = player
+    @spaces[cell] = if player == 1
+                      'O'
+                    else
+                      'X'
+                    end
   end
 
   # check for winner
@@ -53,8 +58,14 @@ puts current_player == 1 ? "#{player1_name} picked at random to begin" : "#{play
 # main game loop
 loop do
   game.draw_board
-  puts current_player == 1 ? "#{player1_name}'s move - pick a square (0-9)" : "#{player2_name}'s move - pick a square (0-9)"
+  puts current_player == 1 ? "#{player1_name}'s move - pick a square (0-8)" : "#{player2_name}'s move - pick a square (0-8)"
   choice = gets.chomp.to_i
   game.update_board(choice, current_player)
   break if game.check_for_winner
+
+  current_player = if current_player == 1
+                     2
+                   else
+                     1
+                   end
 end
