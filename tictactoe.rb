@@ -17,8 +17,20 @@ class Board
     @spaces.each do |row|
       puts "| #{row[0]} | #{row[1]} | #{row[2]} |"
     end
-  end  
+  end
+
+  # if legal, update cell to be player
+  # if not, return invalid
+  def update_board(x, y, player)
+    return 'invalid' if @spaces[x][y] != ' '
+
+    @spaces[x][y] = player
+  end
 end
 
 test = Board.new
+test.update_board(0, 0, 'X')
+test.draw_board
+test.update_board(1, 1, 'O')
+puts
 test.draw_board
