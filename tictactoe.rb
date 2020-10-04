@@ -26,11 +26,23 @@ class Board
 
     @spaces[x][y] = player
   end
+
+  # check for winner
+  # return 'x' or 'o' if there is one
+  # else nothing
+  def check_for_winner
+    # stub
+    false
+  end
 end
 
-test = Board.new
-test.update_board(0, 0, 'X')
-test.draw_board
-test.update_board(1, 1, 'O')
-puts
-test.draw_board
+game = Board.new
+# decide who will play first
+puts "Player 1 - Enter your name"
+player1_name = gets.chomp
+puts "Player 2 - Enter your name"
+player2_name = gets.chomp
+# randomly choose 1 or two
+current_player = [1, 2].sample
+puts current_player == 1 ? "#{player1_name} picked at random to begin" : "#{player2_name} picked at random to begin"
+game.draw_board
