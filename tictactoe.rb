@@ -63,11 +63,29 @@ class Board
   # return 'x' or 'o' if there is one
   # else nothing
   def check_for_winner
-    # stub
-    @winner = 'stub'
+    # check each condition for winning
+    if @spaces[0..2].all? { |cell| cell == 'X' }
+      @winner = 'X'
+      return true
+    elsif @spaces[0..2].all? { |cell| cell == 'O' }
+      @winner = 'O'
+      return true
+    elsif @spaces[3..5].all? { |cell| cell == 'X' }
+      @winner = 'X'
+      return true
+    elsif @spaces[3..5].all? { |cell| cell == 'O' }
+      @winner = 'O'
+      return true
+    elsif @spaces[6..9].all? { |cell| cell == 'X' }
+      @winner = 'X'
+      return true
+    elsif @spaces[6..9].all? { |cell| cell == 'O' }
+      @winner = 'O'
+      return true
+    end
     false
   end
-  
+
   def declare_winner
     "It's a draw" if @winner == 'draw'
     "#{@winner} wins!"
@@ -95,7 +113,8 @@ loop do
   end
 
   break if game.check_for_winner
+
   game.next_player
 end
-
+game.draw_board
 puts game.declare_winner
