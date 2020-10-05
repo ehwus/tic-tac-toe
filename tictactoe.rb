@@ -59,6 +59,16 @@ class Board
     end
   end
 
+  # helper function for check_for winner
+  # takes 3 cells and returns 'X' if all are X
+  # same for O, and 'false' if neither
+  def check_three(cell1, cell2, cell3)
+    together = [cell1, cell2, cell3]
+    return 'X' if together.all? { |cell| cell == 'X' }
+    return 'O' if together.all? { |cell| cell == 'O' }
+    return false
+  end
+
   # check for winner
   # return 'x' or 'o' if there is one
   # else nothing
@@ -83,6 +93,7 @@ class Board
       @winner = 'O'
       return true
     end
+    
     false
   end
 
