@@ -76,23 +76,21 @@ class Board
   # else nothing
   def check_for_winner
     # check each condition for winning
-    if @spaces[0..2].all? { |cell| cell == 'X' }
-      @winner = 'X'
+    first_row = check_three(@spaces[0], @spaces[1], @spaces[2])
+    if first_row
+      @winner = first_row
       return true
-    elsif @spaces[0..2].all? { |cell| cell == 'O' }
-      @winner = 'O'
+    end
+
+    second_row = check_three(@spaces[3], @spaces[4], @spaces[5])
+    if second_row
+      @winner = second_row
       return true
-    elsif @spaces[3..5].all? { |cell| cell == 'X' }
-      @winner = 'X'
-      return true
-    elsif @spaces[3..5].all? { |cell| cell == 'O' }
-      @winner = 'O'
-      return true
-    elsif @spaces[6..9].all? { |cell| cell == 'X' }
-      @winner = 'X'
-      return true
-    elsif @spaces[6..9].all? { |cell| cell == 'O' }
-      @winner = 'O'
+    end
+
+    third_row = check_three(@spaces[6], @spaces[7], @spaces[8])
+    if third_row
+      @winner = third_row
       return true
     end
 
