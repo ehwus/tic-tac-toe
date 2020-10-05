@@ -50,6 +50,15 @@ class Board
                     end
   end
 
+  # change the player over
+  def next_player
+    @current_player = if @current_player == 1
+      2
+    else
+      1
+    end
+  end
+
   # check for winner
   # return 'x' or 'o' if there is one
   # else nothing
@@ -86,12 +95,7 @@ loop do
   end
 
   break if game.check_for_winner
-
-  current_player = if current_player == 1
-                     2
-                   else
-                     1
-                   end
+  game.next_player
 end
 
 puts game.declare_winner
