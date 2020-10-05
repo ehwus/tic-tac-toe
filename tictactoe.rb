@@ -4,7 +4,7 @@
 # game board
 # contains all logic for a game of tic-tac-toe
 class Board
-  attr_reader :current_player, :player1_name, :player2_name
+  attr_reader :current_player, :x_player_name, :o_player_name
 
   def initialize
     # var for each cell
@@ -20,12 +20,19 @@ class Board
 
   def take_player_names
     puts 'Player 1 - Enter your name'
-    @player1_name = gets.chomp
+    player1_name = gets.chomp
     puts 'Player 2 - Enter your name'
-    @player2_name = gets.chomp
+    player2_name = gets.chomp
     # randomly choose a player and announce
     @x_player = [1, 2].sample
-    puts @x_player == 1 ? "#{@player1_name} picked at random to begin" : "#{@player2_name} picked at random to begin"
+    if @x_player == 1
+      @x_player_name = player1_name
+      @o_player_name = player2_name
+    else
+      @x_player_name = player2_name
+      @o_player_name = player1_name
+    end
+    puts "#{@x_player_name} picked to start"
   end
 
   # puts each row of board
@@ -113,7 +120,8 @@ class Board
 
   def declare_winner
     "It's a draw" if @winner == 'draw'
-    "#{@winner} wins!"
+    "#{@x_player_name} wins!" if @winner == 'X'
+    "#{@o_player_name} wins!"
   end
 end
 
@@ -126,7 +134,7 @@ game.take_player_names
 loop do
   # draw board and announce player turn
   game.draw_board
-  puts game.current_player == 1 ? "#{game.player1_name}'s move - pick a square (0-8)" : "#{game.player2_name}'s move - pick a square (0-8)"
+  puts game.current_player == 'O' ? "#{game.o_player_name}'s move - pick a square (0-8)" : "#{game.x_player_name}'s move - pick a square (0-8)"
   # take choice and update
   # will catch error
   begin
