@@ -14,16 +14,18 @@ class Board
       [' ', ' ', ' ',
        ' ', ' ', ' ',
        ' ', ' ', ' ']
+
+    @current_player = 'O'
   end
 
-  def get_player_names
+  def take_player_names
     puts 'Player 1 - Enter your name'
     @player1_name = gets.chomp
     puts 'Player 2 - Enter your name'
     @player2_name = gets.chomp
     # randomly choose a player and announce
-    @current_player = [1, 2].sample
-    puts @current_player == 1 ? "#{@player1_name} picked at random to begin" : "#{@player2_name} picked at random to begin"
+    @x_player = [1, 2].sample
+    puts @x_player == 1 ? "#{@player1_name} picked at random to begin" : "#{@player2_name} picked at random to begin"
   end
 
   # puts each row of board
@@ -43,19 +45,19 @@ class Board
   def update_board(cell)
     raise 'Space already occupied' if @spaces[cell] != ' '
 
-    @spaces[cell] = if @current_player == 1
-                      'O'
-                    else
+    @spaces[cell] = if @current_player == 'X'
                       'X'
+                    else
+                      'O'
                     end
   end
 
   # change the player over
   def next_player
-    @current_player = if @current_player == 1
-      2
+    @current_player = if @current_player == 'X'
+      'O'
     else
-      1
+      'X'
     end
   end
 
@@ -119,7 +121,7 @@ end
 # VARIABLES
 game = Board.new
 # decide who will play first
-game.get_player_names
+game.take_player_names
 # main game loop
 loop do
   # draw board and announce player turn
