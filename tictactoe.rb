@@ -2,6 +2,7 @@
 
 # OBJECTS
 # game board
+# contains all logic for a game of tic-tac-toe
 class Board
   def initialize
     # var for each cell
@@ -46,6 +47,9 @@ class Board
   end
 end
 
+# MAIN
+# VARIABLES
+winner = nil
 game = Board.new
 # decide who will play first
 puts 'Player 1 - Enter your name'
@@ -61,8 +65,14 @@ loop do
   game.draw_board
   puts current_player == 1 ? "#{player1_name}'s move - pick a square (0-8)" : "#{player2_name}'s move - pick a square (0-8)"
   # take choice and update
-  choice = gets.chomp.to_i
-  game.update_board(choice, current_player)
+  # will catch error
+  begin
+    choice = gets.chomp.to_i
+    game.update_board(choice, current_player)
+  rescue
+    puts 'Space in use - please make another choice'
+    retry
+  end
 
   break if game.check_for_winner
 
