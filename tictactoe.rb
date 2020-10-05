@@ -43,13 +43,18 @@ class Board
   # else nothing
   def check_for_winner
     # stub
-    false
+    @winner = 'stub'
+    true
+  end
+  
+  def declare_winner
+    "It's a draw" if @winner == 'draw'
+    "#{@winner} wins!"
   end
 end
 
 # MAIN
 # VARIABLES
-winner = nil
 game = Board.new
 # decide who will play first
 puts 'Player 1 - Enter your name'
@@ -82,3 +87,5 @@ loop do
                      1
                    end
 end
+
+puts game.declare_winner
