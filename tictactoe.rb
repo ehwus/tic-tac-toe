@@ -65,8 +65,10 @@ class Board
   def check_three(cell1, cell2, cell3)
     together = [cell1, cell2, cell3]
     return 'X' if together.all? { |cell| cell == 'X' }
+
     return 'O' if together.all? { |cell| cell == 'O' }
-    return false
+
+    false
   end
 
   # check for winner
@@ -93,7 +95,19 @@ class Board
       @winner = 'O'
       return true
     end
-    
+
+    diagonal1 = check_three(@spaces[0], @spaces[4], @spaces[8])
+    if diagonal1
+      @winner = diagonal1
+      return true
+    end
+
+    diagonal2 = check_three(@spaces[2], @spaces[4], @spaces[6])
+    if diagonal2
+      @winner = diagonal2
+      return true
+    end
+
     false
   end
 
