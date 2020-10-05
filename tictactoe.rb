@@ -28,7 +28,7 @@ class Board
   # if legal, update cell to be player
   # if not, return invalid
   def update_board(cell, player)
-    return 'invalid' if @spaces[cell] != ' '
+    raise 'Space already occupied' if @spaces[cell] != ' '
 
     @spaces[cell] = if player == 1
                       'O'
@@ -57,10 +57,13 @@ current_player = [1, 2].sample
 puts current_player == 1 ? "#{player1_name} picked at random to begin" : "#{player2_name} picked at random to begin"
 # main game loop
 loop do
+  # draw board and announce player turn
   game.draw_board
   puts current_player == 1 ? "#{player1_name}'s move - pick a square (0-8)" : "#{player2_name}'s move - pick a square (0-8)"
+  # take choice and update
   choice = gets.chomp.to_i
   game.update_board(choice, current_player)
+
   break if game.check_for_winner
 
   current_player = if current_player == 1
